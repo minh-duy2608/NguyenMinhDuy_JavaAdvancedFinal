@@ -8,7 +8,7 @@ import java.util.List;
 public class TableDAO {
 
     public void add(Table t) throws Exception {
-        String sql = "INSERT INTO tables(table_name, capacity) VALUES (?, ?)";
+        String sql = "INSERT INTO tables(table_name, capacity, status) VALUES (?, ?, 'AVAILABLE')";
 
         Connection conn = DBConnection.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql);
@@ -102,7 +102,7 @@ public class TableDAO {
 
     public boolean hasAvailableTable() throws Exception {
 
-        String sql = "SELECT COUNT(*) as total FROM tables WHERE status = 'EMPTY'";
+        String sql = "SELECT COUNT(*) as total FROM tables WHERE status = 'AVAILABLE'";
 
         Connection conn = DBConnection.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql);
@@ -134,7 +134,7 @@ public class TableDAO {
     }
 
     public int createAndReturnId(String name, int capacity) throws Exception {
-        String sql = "INSERT INTO tables(table_name, capacity) VALUES (?, ?)";
+        String sql = "INSERT INTO tables(table_name, capacity, status) VALUES (?, ?, 'AVAILABLE')";
 
         Connection conn = DBConnection.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
